@@ -1,6 +1,7 @@
 import { BsThreeDots } from "react-icons/bs";
-import { useState } from "react";
+import { FC, useState } from "react";
 ///internal
+import { TodoData } from "../../typing/store/state";
 import Backdrop from "../Backdrop";
 import {
   Container,
@@ -9,9 +10,10 @@ import {
   EditItem,
   Input,
   Button,
+  Title,
 } from "./styled";
 
-const TaskItem = () => {
+const TaskItem: FC<TodoData> = (props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
 
@@ -32,13 +34,13 @@ const TaskItem = () => {
     <Container>
       {isEdit ? (
         <>
-          <Input onBlur={onBlurInput} autoFocus />
+          <Input defaultValue={props.title} onBlur={onBlurInput} autoFocus />
           <Button>Save</Button>
         </>
       ) : (
         <>
-          <Checkbox />
-          <p>TaskItem</p>
+          <Checkbox checked={props.completed} />
+          <Title isDone={props.completed}>{props.title}</Title>
           <BsThreeDots onClick={toggleEditModal} />
           {editModal && <Backdrop onClick={toggleEditModal} />}
           <EditContainer isActive={editModal}>

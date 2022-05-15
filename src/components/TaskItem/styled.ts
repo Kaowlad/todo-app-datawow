@@ -5,6 +5,10 @@ interface ItemProps {
     isRed?: boolean
 }
 
+interface TitleProps {
+    isDone: boolean
+}
+
 export const Container = styled.div`
     position: relative;
     width: 100%;
@@ -91,4 +95,9 @@ export const Button = styled.button`
     color: #ffffff;
     border: none;
     background-color: #585292;
+`
+
+export const Title = styled.p<TitleProps>`
+    color: ${props => props.isDone ? '#A9A9A9' : '#2E2E2E'};
+    text-decoration: ${props => props.isDone && 'line-through solid 1px'};
 `
