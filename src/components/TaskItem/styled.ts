@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MenuContainer, MenuItem } from "../Filter/styled";
+import { screenSize } from "../../utils/service";
 
 interface ItemProps {
     isRed?: boolean
@@ -30,6 +31,28 @@ export const Container = styled.div`
         margin-left: auto;
         margin-right: 20px;
     }
+
+    & p {
+        width: 70%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    @media screen and (max-width: ${screenSize.mobile}){
+        flex-direction: column;
+        justify-content: space-between;
+        height: auto;
+        padding: 0;
+
+        & svg {
+            margin: 0;
+        }
+
+        & p {
+            text-align: center;
+        }
+    }
 `
 
 export const Checkbox = styled.input.attrs({type: 'checkbox'})`
@@ -58,14 +81,26 @@ export const Checkbox = styled.input.attrs({type: 'checkbox'})`
             border-width: 0 2px 2px 0;
         }
     }
+
+    @media screen and (max-width: ${screenSize.mobile}){
+        margin: 0;
+        margin-top: 10px;
+    }
 `
 
 export const EditContainer = styled(MenuContainer)`
-    width: 20%;
+    width: 110px;
     margin: 0;
     top: 40px;
-    left: 78%;
+    left: 100%;
+    transform: translate(-110%);
     z-index: 2;
+
+    @media screen and (max-width: ${screenSize.mobile}){
+        top: 85px;
+        left: 50%;
+        transform: translate(-50%)
+    }
 `
 
 export const EditItem = styled(MenuItem)<ItemProps>`
@@ -86,6 +121,11 @@ export const Input = styled.input`
     &:focus {
         outline: none;
     }
+
+    @media screen and (max-width: ${screenSize.mobile}){
+        height: 50px;
+        text-align: center;
+    }
 `
 
 export const Button = styled.button`
@@ -104,6 +144,12 @@ export const Button = styled.button`
     
     &:hover {
         transform: scale(1.1)
+    }
+
+    @media screen and (max-width: ${screenSize.mobile}){
+        margin: 0;
+        height: 36px;
+        margin-bottom: 10px;
     }
 `
 
