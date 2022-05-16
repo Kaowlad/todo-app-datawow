@@ -79,6 +79,7 @@ export const Input = styled.input`
     width: 80%;
     height: 100%;
     border: none;
+    font-size: 16px;
 
     &:focus {
         outline: none;
@@ -87,8 +88,10 @@ export const Input = styled.input`
 
 export const Button = styled.button`
     font-family: 'Roboto';
+    font-size: 16px;
     width: 64px;
     height: 100%;
+    padding: 0;
     border-radius: 1000px;
     margin-left: auto;
     cursor: pointer;

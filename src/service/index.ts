@@ -1,6 +1,6 @@
 import axios from "axios";
 ///internal
-import { FetchTodos, AddTodo } from "../typing/service";
+import { FetchTodos, AddTodo, UpdateTodo } from "../typing/service";
 import { endpoint } from "../utils/service";
 
 export const fetchTodos: FetchTodos = () => {
@@ -20,3 +20,14 @@ export const addTodo: AddTodo = (title) => {
     },
   });
 };
+
+export const updateTodo: UpdateTodo = (id, params) => {
+  return axios({
+    url: endpoint(`/todos/${id}`),
+    method: "PATCH",
+    data: {
+      title: params.title || undefined,
+      completed: params.completed
+    }
+  })
+}

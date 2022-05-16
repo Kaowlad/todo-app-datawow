@@ -1,5 +1,5 @@
 import { BsThreeDots } from "react-icons/bs";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 ///internal
 import { TodoData } from "../../typing/store/state";
 import Backdrop from "../Backdrop";
@@ -12,10 +12,13 @@ import {
   Button,
   Title,
 } from "./styled";
+import { useTodosStore } from "../../store";
 
 const TaskItem: FC<TodoData> = (props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
+  const [todo, setTodo] = useState<string>(props.title);
+  const updateTodo = useTodosStore((state) => state.updateTodo);
 
   const toggleEditModal = () => {
     setEditModal((oldValue) => !oldValue);
@@ -26,20 +29,43 @@ const TaskItem: FC<TodoData> = (props) => {
     toggleEditModal();
   };
 
-  const onBlurInput = () => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setTodo(value);
+  };
+
+  const onCheckbox = () => {
+    updateTodo(props.id, { completed: !props.completed });
+  };
+
+  const onSave = () => {
+    if (!todo) return;
+    updateTodo(props.id, { title: todo });
     setIsEdit(false);
+  };
+
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = e.key;
+    if (key === "Enter") {
+      onSave();
+    }
   };
 
   return (
     <Container>
       {isEdit ? (
         <>
-          <Input defaultValue={props.title} onBlur={onBlurInput} autoFocus />
-          <Button>Save</Button>
+          <Input
+            defaultValue={props.title}
+            onChange={onChange}
+            onKeyDown={onEnter}
+            autoFocus
+          />
+          <Button onClick={onSave}>Save</Button>
         </>
       ) : (
         <>
-          <Checkbox checked={props.completed} />
+          <Checkbox defaultChecked={props.completed} onChange={onCheckbox} />
           <Title isDone={props.completed}>{props.title}</Title>
           <BsThreeDots onClick={toggleEditModal} />
           {editModal && <Backdrop onClick={toggleEditModal} />}

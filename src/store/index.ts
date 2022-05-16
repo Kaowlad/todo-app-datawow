@@ -42,5 +42,15 @@ export const useTodosStore = create<TodoStore>((set, get) => ({
     } catch (error) {
       alert(error)
     }
+  },
+  updateTodo: async (id, params) => {
+    try {
+      const { status } = await TodosService.updateTodo(id, params)
+      if (status === 200) {
+        get().getTodos()
+      }
+    } catch (error) {
+      alert(error)
+    }
   }
 }));
