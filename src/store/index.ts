@@ -33,4 +33,14 @@ export const useTodosStore = create<TodoStore>((set, get) => ({
       })
     );
   },
+  addTodo: async (title) => {
+    try {
+      const { status } = await TodosService.addTodo(title)
+      if (status === 201) {
+        get().getTodos()
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
 }));
