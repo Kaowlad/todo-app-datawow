@@ -16,6 +16,7 @@ export const Container = styled.div`
     background-color: #ffffff;
     border-radius: 1000px;
     padding: 5px 20px;
+    padding-right: 0;
     margin-top: 15px;
     display: flex;
     flex-flow: row nowrap;
@@ -27,6 +28,7 @@ export const Container = styled.div`
         color: #9796A8;
         cursor: pointer;
         margin-left: auto;
+        margin-right: 20px;
     }
 `
 
@@ -88,16 +90,21 @@ export const Input = styled.input`
 
 export const Button = styled.button`
     font-family: 'Roboto';
-    font-size: 16px;
     width: 64px;
     height: 100%;
     padding: 0;
     border-radius: 1000px;
     margin-left: auto;
+    margin-right: 6px;
     cursor: pointer;
     color: #ffffff;
     border: none;
     background-color: #585292;
+    transition: transform 0.25s ease-out;
+    
+    &:hover {
+        transform: scale(1.1)
+    }
 `
 
 export const Title = styled.p<TitleProps>`

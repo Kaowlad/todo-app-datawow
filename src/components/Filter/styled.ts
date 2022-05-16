@@ -4,6 +4,10 @@ interface MenuProps {
     isActive: boolean
 }
 
+interface MenuItemProps {
+    current?: boolean
+}
+
 export const SelectContainer = styled.div`
     height: 29px;
     width: 110px;
@@ -46,13 +50,15 @@ export const MenuContainer = styled.div<MenuProps>`
     }
 `
 
-export const MenuItem = styled.div`
+export const MenuItem = styled.div<MenuItemProps>`
     height: 28px;
     line-height: 28px;
     padding-left: 10px;
     border-radius: 8px;
-    color: #2E2E2E;
+    background-color: ${props => props.current && '#585292'};
+    color: ${props => props.current ? '#ffffff' : '#2E2E2E'};
     cursor: pointer;
+
 
     &:hover {
         background-color: #585292;
