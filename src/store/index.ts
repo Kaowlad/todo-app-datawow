@@ -35,22 +35,32 @@ export const useTodosStore = create<TodoStore>((set, get) => ({
   },
   addTodo: async (title) => {
     try {
-      const { status } = await TodosService.addTodo(title)
+      const { status } = await TodosService.addTodo(title);
       if (status === 201) {
-        get().getTodos()
+        get().getTodos();
       }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
   },
   updateTodo: async (id, params) => {
     try {
-      const { status } = await TodosService.updateTodo(id, params)
+      const { status } = await TodosService.updateTodo(id, params);
       if (status === 200) {
-        get().getTodos()
+        get().getTodos();
       }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-  }
+  },
+  deleteTodo: async (id) => {
+    try {
+      const { status } = await TodosService.deleteTodo(id);
+      if (status === 200) {
+        get().getTodos();
+      }
+    } catch (error) {
+      alert(error);
+    }
+  },
 }));

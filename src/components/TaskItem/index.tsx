@@ -18,7 +18,10 @@ const TaskItem: FC<TodoData> = (props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [todo, setTodo] = useState<string>(props.title);
-  const updateTodo = useTodosStore((state) => state.updateTodo);
+  const store = useTodosStore((state) => ({
+    updateTodo: state.updateTodo,
+    deleteTodo: state.deleteTodo,
+  }));
 
   const toggleEditModal = () => {
     setEditModal((oldValue) => !oldValue);
@@ -35,12 +38,12 @@ const TaskItem: FC<TodoData> = (props) => {
   };
 
   const onCheckbox = () => {
-    updateTodo(props.id, { completed: !props.completed });
+    store.updateTodo(props.id, { completed: !props.completed });
   };
 
   const onSave = () => {
     if (!todo) return;
-    updateTodo(props.id, { title: todo });
+    store.updateTodo(props.id, { title: todo });
     setIsEdit(false);
   };
 
@@ -49,6 +52,11 @@ const TaskItem: FC<TodoData> = (props) => {
     if (key === "Enter") {
       onSave();
     }
+  };
+
+  const onDelete = () => {
+    store.deleteTodo(props.id);
+    toggleEditModal();
   };
 
   return (
@@ -71,7 +79,9 @@ const TaskItem: FC<TodoData> = (props) => {
           {editModal && <Backdrop onClick={toggleEditModal} />}
           <EditContainer isActive={editModal}>
             <EditItem onClick={onEdit}>Edit</EditItem>
-            <EditItem isRed>Delete</EditItem>
+            <EditItem isRed onClick={onDelete}>
+              Delete
+            </EditItem>
           </EditContainer>
         </>
       )}

@@ -8,4 +8,5 @@ export interface TodoStore extends TodoState {
     setType: (type: TaskType) => void
     addTodo: (title: string) => void
     updateTodo: (id: string, params: UpdateParams) => void
+    deleteTodo: (id: string) => void
 }
