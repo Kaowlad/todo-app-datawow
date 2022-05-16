@@ -8,6 +8,8 @@ import * as TodosService from "../service";
 const state: TodoState = {
   data: [],
   type: "All",
+  progress: 0,
+  done: 0
 };
 
 export const useTodosStore = create<TodoStore>((set, get) => ({
@@ -16,9 +18,14 @@ export const useTodosStore = create<TodoStore>((set, get) => ({
     try {
       const { status, data } = await TodosService.fetchTodos();
       if (status === 200) {
+        const completed = data.filter((todo) => todo.completed === true).length
+        const progress = (completed / data.length) * 100
+        const TwoDecimal = Math.round(progress * 100) / 100
         set(
           produce<TodoState>((state) => {
             state.data = data;
+            state.progress = TwoDecimal
+            state.done = completed
           })
         );
       }

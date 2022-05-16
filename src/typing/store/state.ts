@@ -9,4 +9,6 @@ export type TaskType = "All" | 'Done' | "Undone"
 export interface TodoState {
     data: TodoData[]
     type: TaskType
+    progress: number
+    done: number
 }
